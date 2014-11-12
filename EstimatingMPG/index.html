@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Estimating MPG</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Estimating MPG">
+  <meta name="author" content="Joanna Chan">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Estimating MPG</h1>
+    <h2>Developing Data Products Assignment</h2>
+    <p>Joanna Chan<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Estimating MPG using dataset &#39;mtcars&#39; from R library. 
+This dataset comprises fuel consumption of 32 cars based on 10 factors.</p>
+
+<p>A step-wise approach was used to identify the significant 
+factors affecting MPG. The identified significant factors are:</p>
+
+<ol>
+<li>Number of cylinder</li>
+<li>Horsepower</li>
+<li>Weight</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Modeling</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The multivariate linear model below shows the coefficients of 
+the significant factors:</p>
+
+<pre><code class="r">fit &lt;- lm (mpg ~ cyl+hp+wt, data = mtcars)
+fit
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ cyl + hp + wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)          cyl           hp           wt  
+##    38.75179     -0.94162     -0.01804     -3.16697
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Analyzing residuals</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">par(mfrow = c(1, 4))
+plot(fit)
+</code></pre>
+
+<p><img src="assets/fig/plot-1.png" alt="plot of chunk plot"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Making predictions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s try a 6-cylinder vehicle with average horsepower and weight:</p>
+
+<pre><code class="r">v1 &lt;- data.frame(cyl=c(6), hp=c(146.7), wt=c(3.217)); ans &lt;- predict(fit, newdata=v1); ans[[1]]
+</code></pre>
+
+<p>[1] 20.26774</p>
+
+<p>Then, a 4-cylinder vehicle with mininal horsepower and weight:</p>
+
+<pre><code class="r">v2 &lt;- data.frame(cyl=c(4), hp=c(52), wt=c(1.513)); ans &lt;- predict(fit, newdata=v2); ans[[1]]
+</code></pre>
+
+<p>[1] 29.25571</p>
+
+<p>Finally, a 8-cylinder vehicle with maximun horsepower and weight:</p>
+
+<pre><code class="r">v3 &lt;- data.frame(cyl=c(8), hp=c(335), wt=c(5.424)); ans &lt;- predict(fit, newdata=v3); ans[[1]]
+</code></pre>
+
+<p>[1] 7.998427</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Modeling'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Analyzing residuals'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Making predictions'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
